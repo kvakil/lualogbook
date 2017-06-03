@@ -64,5 +64,3 @@ export include_year = (year) -> include_tree year
 export include_month = (month) ->
     print_month month
     include_tree month
-
-
