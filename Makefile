@@ -9,7 +9,7 @@ LATEXMKOPTS=-pdflatex=lualatex -pdf
 LATEXMK=latexmk $(LATEXMKOPTS)
 
 # moonscript
-MOON_IN=$(wildcard *.moon)
+MOON_IN=$(wildcard *.moon) $(wildcard */*/*.moon)
 MOON_OUT=$(MOON_IN:.moon=.lua)
 MOONFLAGS=
 
