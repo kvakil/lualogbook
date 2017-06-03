@@ -18,6 +18,9 @@ TODAY=$(shell date +%Y/%m/%d).tex
 
 all: $(MAIN).pdf $(MOONFILES)
 
+view: all
+	xreader $(MAIN).pdf
+
 today:
 	cp --no-clobber _template.inc $(TODAY)
 	git add $(TODAY)
