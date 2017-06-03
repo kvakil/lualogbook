@@ -28,8 +28,18 @@ local print_month
 print_month = function(month)
   return tex.sprint("\\chapter{" .. tostring(month) .. "}\\clearpage")
 end
+local nice_date
+nice_date = function(filename)
+  local year, month, day = filename:match("([^/]+)/([^/]+)/([^/]+)")
+  local utime = os.time({
+    year = year,
+    month = month,
+    day = day
+  })
+  return os.date("%A, %Y-%m-%d")
+end
 include_day = function(day)
-  tex.sprint("\\section{" .. tostring(day) .. "}")
+  tex.sprint("\\section{" .. tostring(nice_date(day)) .. "}")
   tex.sprint("\\label{" .. tostring(day) .. "}")
   tex.sprint("\\include*{" .. tostring(day) .. "}")
   return tex.sprint("\\clearpage")

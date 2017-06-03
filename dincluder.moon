@@ -2,7 +2,7 @@ module "dincluder", package.seeall
 
 is_dotfile = (filename) -> filename\match("^%.") != nil
 
-explode_name = (filename) -> filename\match("([^.]+)%.([^.]+)")
+explode_name = (filename) -> filename\match "([^.]+)%.([^.]+)"
 
 export include = (directory) ->
     yield_tree = (cd) ->
@@ -16,8 +16,18 @@ export include = (directory) ->
     coroutine.wrap -> yield_tree directory
 
 print_month = (month) -> tex.sprint "\\chapter{#{month}}\\clearpage"
+
+nice_date = (filename) ->
+    year, month, day = filename\match "([^/]+)/([^/]+)/([^/]+)"
+    utime = os.time({
+        year: year
+        month: month
+        day: day
+    })
+    os.date "%A, %Y-%m-%d"
+
 export include_day = (day) ->
-    tex.sprint "\\section{#{day}}"
+    tex.sprint "\\section{#{nice_date day}}"
     tex.sprint "\\label{#{day}}"
     tex.sprint "\\include*{#{day}}"
     tex.sprint "\\clearpage"
@@ -35,3 +45,5 @@ export include_year = (year) -> include_tree year
 export include_month = (month) ->
     print_month month
     include_tree month
+
+
