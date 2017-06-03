@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 from panflute import *
-import sys
 
 def simple_id(filename):
     return ''.join((c for c in filename if c.isdigit()))
