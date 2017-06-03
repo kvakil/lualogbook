@@ -25,5 +25,5 @@ export include_all = (directory) ->
             if ext == "tex"
                 tex.sprint "\\section{#{basename}}"
                 tex.sprint "\\label{#{basename}}"
-                tex.sprint "\\include{#{basename}}"
+                tex.sprint "\\include*{#{basename}}"
                 tex.sprint "\\clearpage"
