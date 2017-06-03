@@ -17,7 +17,7 @@
 \usepackage{newclude}
 
 % don't number sections
-\setcounter{secnumdepth}{0}
+\setcounter{secnumdepth}{-1}
 % show subsubsections in ToC
 \setcounter{tocdepth}{3}
 
@@ -71,6 +71,9 @@
 \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
 \newcommand{\NormalTok}[1]{#1}
 
+% fancy header
+\usepackage{fancyhdr}
+\pagestyle{fancy}
 
 % hyperref for pretty links
 % try to keep this at the bottom
