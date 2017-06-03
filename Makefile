@@ -43,3 +43,4 @@ today:
 clean:
 	rm *.lua || true
 	latexmk -C
+	git clean -ndX
