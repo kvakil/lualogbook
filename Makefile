@@ -38,7 +38,7 @@ today:
 	moonc $(MOONFLAGS) $<
 
 %.tex: %.md
-	pandoc $(PANDOCFLAGS) -o $@ $<
+	pandoc $(PANDOCFLAGS) -M title:$< -o $@ $<
 
 clean:
 	rm *.lua || true
