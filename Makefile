@@ -9,16 +9,24 @@ LATEXMKOPTS=-pdflatex=lualatex -pdf
 LATEXMK=latexmk $(LATEXMKOPTS)
 
 # moonscript
-MOONFILES=$(wildcard *.moon)
-LUAFILES=$(MOONFILES:.moon=.lua)
+MOON_IN=$(wildcard *.moon)
+MOON_OUT=$(MOON_IN:.moon=.lua)
 MOONFLAGS=
 
+# pandoc
+MD_IN=$(wildcard */*/*.md)
+MD_OUT=$(MD_IN:.md=.tex)
+PANDOCFLAGS= -f markdown -t latex
+
 # ease of use
-TODAY=$(shell date +%Y/%m/%d).tex
+TODAY=$(shell date +%Y/%m/%d).md
 
-all: $(MAIN).pdf $(MOONFILES)
+all: $(MAIN).pdf
 
-view: all
+$(MAIN).pdf: $(MOON_OUT) $(MD_OUT)
+	$(LATEXMK)
+
+view: $(MAIN).pdf
 	xreader $(MAIN).pdf
 
 today:
@@ -29,13 +37,8 @@ today:
 %.lua: %.moon
 	moonc $(MOONFLAGS) $<
 
-$(MAIN).pdf: $(MOONFILES) .PHONY
-	$(LATEXMK)
-
-force: $(MOONFILES) .PHONY
-	$(LATEXMK) -g
-
-.PHONY:
+%.tex: %.md pandoc.lua
+	pandoc $(PANDOCFLAGS) -o $@ $<
 
 clean:
 	rm *.lua || true
