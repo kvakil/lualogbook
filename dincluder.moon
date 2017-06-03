@@ -47,13 +47,13 @@ include_tree = (directory) ->
             if ext == "tex"
                 include_day basename
 
-export include_day = (day) ->
+dincluder.include_day = (day) ->
     tex.sprint "\\section{#{nice_date day}}"
     tex.sprint "\\label{#{day}}"
     tex.sprint "\\include*{#{day}}"
     tex.sprint "\\clearpage"
 
-export include_year = (year) -> include_tree year
-export include_month = (month) ->
+dincluder.include_year = (year) -> include_tree year
+dincluder.include_month = (month) ->
     print_month month
     include_tree month

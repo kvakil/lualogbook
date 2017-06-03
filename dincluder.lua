@@ -1,5 +1,5 @@
 module("dincluder", package.seeall)
-local is_dotfile, explode_name, nice_month, print_month, ordinal_suffix, nice_date, include, include_tree, include_day, include_year, include_month
+local is_dotfile, explode_name, nice_month, print_month, ordinal_suffix, nice_date, include, include_tree
 is_dotfile = function(filename)
   return filename:match("^%.") ~= nil
 end
@@ -71,16 +71,16 @@ include_tree = function(directory)
     end
   end
 end
-include_day = function(day)
+dincluder.include_day = function(day)
   tex.sprint("\\section{" .. tostring(nice_date(day)) .. "}")
   tex.sprint("\\label{" .. tostring(day) .. "}")
   tex.sprint("\\include*{" .. tostring(day) .. "}")
   return tex.sprint("\\clearpage")
 end
-include_year = function(year)
+dincluder.include_year = function(year)
   return include_tree(year)
 end
-include_month = function(month)
+dincluder.include_month = function(month)
   print_month(month)
   return include_tree(month)
 end
