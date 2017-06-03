@@ -16,7 +16,7 @@ MOONFLAGS=
 # pandoc
 MD_IN=$(wildcard */*/*.md)
 MD_OUT=$(MD_IN:.md=.tex)
-PANDOCFLAGS= -f markdown -t latex
+PANDOCFLAGS= -F filter.py -f markdown -t latex
 
 # ease of use
 TODAY=$(shell date +%Y/%m/%d).md
@@ -38,8 +38,7 @@ today:
 	moonc $(MOONFLAGS) $<
 
 %.tex: %.md
-	pandoc -t intermediate.lua -o $<.tmp $@
-	pandoc $(PANDOCFLAGS) -o $@ $<.tmp
+	pandoc $(PANDOCFLAGS) -o $@ $<
 
 clean:
 	rm *.lua || true
