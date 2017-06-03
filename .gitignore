@@ -9,3 +9,4 @@
 *.pdf
 *.run.xml
 *.toc
+**/*.tex
