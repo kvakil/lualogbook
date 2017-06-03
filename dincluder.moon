@@ -19,16 +19,14 @@ export include = (directory) ->
     coroutine.wrap -> yield_tree directory
 
 export include_all = (directory) ->
-    tex.sprint "\\chapter{" .. directory .. "}"
-    tex.sprint "\\clearpage"
     for filename in include directory
         if lfs.isdir filename
-            tex.sprint "\\section{" .. filename .. "}"
+            tex.sprint "\\chapter{#{filename}}"
             tex.sprint "\\clearpage"
         else
             basename, ext = explode_name filename
             if ext == "tex"
-                tex.sprint "\\subsection{" .. basename .. "}"
-                tex.sprint "\\label{" .. basename .. "}"
-                include_file basename
+                tex.sprint "\\section{#{basename}}"
+                tex.sprint "\\label{#{basename}}"
+                tex.sprint "\\include{#{basename}}"
                 tex.sprint "\\clearpage"
