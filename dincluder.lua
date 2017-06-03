@@ -24,19 +24,33 @@ include = function(directory)
     return yield_tree(directory)
   end)
 end
-include_all = function(directory)
+local print_month
+print_month = function(month)
+  return tex.sprint("\\chapter{" .. tostring(month) .. "}\\clearpage")
+end
+include_day = function(day)
+  tex.sprint("\\section{" .. tostring(day) .. "}")
+  tex.sprint("\\label{" .. tostring(day) .. "}")
+  tex.sprint("\\include*{" .. tostring(day) .. "}")
+  return tex.sprint("\\clearpage")
+end
+local include_tree
+include_tree = function(directory)
   for filename in include(directory) do
     if lfs.isdir(filename) then
-      tex.sprint("\\chapter{" .. tostring(filename) .. "}")
-      tex.sprint("\\clearpage")
+      print_month(filename)
     else
       local basename, ext = explode_name(filename)
       if ext == "tex" then
-        tex.sprint("\\section{" .. tostring(basename) .. "}")
-        tex.sprint("\\label{" .. tostring(basename) .. "}")
-        tex.sprint("\\include*{" .. tostring(basename) .. "}")
-        tex.sprint("\\clearpage")
+        include_day(basename)
       end
     end
   end
+end
+include_year = function(year)
+  return include_tree(year)
+end
+include_month = function(month)
+  print_month(month)
+  return include_tree(month)
 end

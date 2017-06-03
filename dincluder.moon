@@ -15,15 +15,23 @@ export include = (directory) ->
 
     coroutine.wrap -> yield_tree directory
 
-export include_all = (directory) ->
+print_month = (month) -> tex.sprint "\\chapter{#{month}}\\clearpage"
+export include_day = (day) ->
+    tex.sprint "\\section{#{day}}"
+    tex.sprint "\\label{#{day}}"
+    tex.sprint "\\include*{#{day}}"
+    tex.sprint "\\clearpage"
+
+include_tree = (directory) ->
     for filename in include directory
         if lfs.isdir filename
-            tex.sprint "\\chapter{#{filename}}"
-            tex.sprint "\\clearpage"
+            print_month filename
         else
             basename, ext = explode_name filename
             if ext == "tex"
-                tex.sprint "\\section{#{basename}}"
-                tex.sprint "\\label{#{basename}}"
-                tex.sprint "\\include*{#{basename}}"
-                tex.sprint "\\clearpage"
+                include_day basename
+
+export include_year = (year) -> include_tree year
+export include_month = (month) ->
+    print_month month
+    include_tree month
