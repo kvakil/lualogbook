@@ -1,0 +1,28 @@
+\title{Logbook}
+\author{Keyhan Vakil}
+\usepackage{datetime}
+    \yyyymmdddate
+
+\date{\today}
+
+% bibliography
+\usepackage[backend=biber,style=numeric,doi=false,isbn=false,url=false,sorting=none]{biblatex}
+\addbibresource{citations/citations.bib}%
+
+% lualatex convenience packages
+\usepackage{luatex85}
+\usepackage{luacode}
+
+% avoid \clearpage for includes
+\usepackage{newclude}
+
+% don't number sections
+\setcounter{secnumdepth}{0}
+% show subsubsections in ToC
+\setcounter{tocdepth}{3}
+
+% hyperref for pretty links
+\usepackage{hyperref}
+
+% code listings
+\usepackage{listings}
