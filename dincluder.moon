@@ -15,7 +15,16 @@ export include = (directory) ->
 
     coroutine.wrap -> yield_tree directory
 
-print_month = (month) -> tex.sprint "\\chapter{#{month}}\\clearpage"
+nice_month = (filename) ->
+    year, month = filename\match "([^/]+)/([^/]+)"
+    utime = os.time({
+        year: year
+        month: month
+        day: 1
+    })
+    os.date "%B %Y", utime
+
+print_month = (month) -> tex.sprint "\\chapter{#{nice_month month}}\\clearpage"
 
 nice_date = (filename) ->
     year, month, day = filename\match "([^/]+)/([^/]+)/([^/]+)"
@@ -24,7 +33,7 @@ nice_date = (filename) ->
         month: month
         day: day
     })
-    os.date "%A, %Y-%m-%d"
+    os.date "%A, %m/%d", utime
 
 export include_day = (day) ->
     tex.sprint "\\section{#{nice_date day}}"

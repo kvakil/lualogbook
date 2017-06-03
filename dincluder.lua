@@ -24,9 +24,19 @@ include = function(directory)
     return yield_tree(directory)
   end)
 end
+local nice_month
+nice_month = function(filename)
+  local year, month = filename:match("([^/]+)/([^/]+)")
+  local utime = os.time({
+    year = year,
+    month = month,
+    day = 1
+  })
+  return os.date("%B %Y", utime)
+end
 local print_month
 print_month = function(month)
-  return tex.sprint("\\chapter{" .. tostring(month) .. "}\\clearpage")
+  return tex.sprint("\\chapter{" .. tostring(nice_month(month)) .. "}\\clearpage")
 end
 local nice_date
 nice_date = function(filename)
@@ -36,7 +46,7 @@ nice_date = function(filename)
     month = month,
     day = day
   })
-  return os.date("%A, %Y-%m-%d")
+  return os.date("%A, %m/%d", utime)
 end
 include_day = function(day)
   tex.sprint("\\section{" .. tostring(nice_date(day)) .. "}")
