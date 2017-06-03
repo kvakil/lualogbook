@@ -37,8 +37,9 @@ today:
 %.lua: %.moon
 	moonc $(MOONFLAGS) $<
 
-%.tex: %.md pandoc.lua
-	pandoc $(PANDOCFLAGS) -o $@ $<
+%.tex: %.md
+	pandoc -t intermediate.lua -o $<.tmp $@
+	pandoc $(PANDOCFLAGS) -o $@ $<.tmp
 
 clean:
 	rm *.lua || true
