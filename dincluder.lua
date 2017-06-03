@@ -38,6 +38,19 @@ local print_month
 print_month = function(month)
   return tex.sprint("\\chapter{" .. tostring(nice_month(month)) .. "}\\clearpage")
 end
+local ordinal_suffix
+ordinal_suffix = function(number)
+  local _exp_0 = number % 10
+  if 1 == _exp_0 then
+    return "st"
+  elseif 2 == _exp_0 then
+    return "nd"
+  elseif 3 == _exp_0 then
+    return "rd"
+  else
+    return "th"
+  end
+end
 local nice_date
 nice_date = function(filename)
   local year, month, day = filename:match("([^/]+)/([^/]+)/([^/]+)")
@@ -46,7 +59,10 @@ nice_date = function(filename)
     month = month,
     day = day
   })
-  return os.date("%A, %m/%d", utime)
+  local day_of_week = os.date("%A", utime)
+  local month_name = os.date("%B", utime)
+  local nice_day = tostring(tonumber(day)) .. tostring(ordinal_suffix(day))
+  return tostring(day_of_week) .. ", " .. tostring(month_name) .. " " .. tostring(nice_day)
 end
 include_day = function(day)
   tex.sprint("\\section{" .. tostring(nice_date(day)) .. "}")

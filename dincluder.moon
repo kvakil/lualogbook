@@ -26,6 +26,13 @@ nice_month = (filename) ->
 
 print_month = (month) -> tex.sprint "\\chapter{#{nice_month month}}\\clearpage"
 
+ordinal_suffix = (number) ->
+    switch number % 10
+        when 1 then "st"
+        when 2 then "nd"
+        when 3 then "rd"
+        else "th"
+
 nice_date = (filename) ->
     year, month, day = filename\match "([^/]+)/([^/]+)/([^/]+)"
     utime = os.time({
@@ -33,7 +40,10 @@ nice_date = (filename) ->
         month: month
         day: day
     })
-    os.date "%A, %m/%d", utime
+    day_of_week = os.date "%A", utime
+    month_name = os.date "%B", utime
+    nice_day = "#{tonumber day}#{ordinal_suffix day}"
+    "#{day_of_week}, #{month_name} #{nice_day}"
 
 export include_day = (day) ->
     tex.sprint "\\section{#{nice_date day}}"
