@@ -1,27 +1,13 @@
 module "dincluder", package.seeall
+local *
 
 is_dotfile = (filename) -> filename\match("^%.") != nil
 
 explode_name = (filename) -> filename\match "([^.]+)%.([^.]+)"
 
-export include = (directory) ->
-    yield_tree = (cd) ->
-        for entry in lfs.dir cd
-            if not is_dotfile entry
-                entry = cd .. "/" .. entry
-                coroutine.yield entry
-                if lfs.isdir entry
-                    yield_tree entry
-
-    coroutine.wrap -> yield_tree directory
-
 nice_month = (filename) ->
     year, month = filename\match "([^/]+)/([^/]+)"
-    utime = os.time({
-        year: year
-        month: month
-        day: 1
-    })
+    utime = os.time(:year, :month, day: 1)
     os.date "%B %Y", utime
 
 print_month = (month) -> tex.sprint "\\chapter{#{nice_month month}}\\clearpage"
@@ -35,21 +21,22 @@ ordinal_suffix = (number) ->
 
 nice_date = (filename) ->
     year, month, day = filename\match "([^/]+)/([^/]+)/([^/]+)"
-    utime = os.time({
-        year: year
-        month: month
-        day: day
-    })
+    utime = os.time(:year, :month, :day)
     day_of_week = os.date "%A", utime
     month_name = os.date "%B", utime
     nice_day = "#{tonumber day}#{ordinal_suffix day}"
     "#{day_of_week}, #{month_name} #{nice_day}"
 
-export include_day = (day) ->
-    tex.sprint "\\section{#{nice_date day}}"
-    tex.sprint "\\label{#{day}}"
-    tex.sprint "\\include*{#{day}}"
-    tex.sprint "\\clearpage"
+include = (directory) ->
+    yield_tree = (cd) ->
+        for entry in lfs.dir cd
+            if not is_dotfile entry
+                entry = cd .. "/" .. entry
+                coroutine.yield entry
+                if lfs.isdir entry
+                    yield_tree entry
+
+    coroutine.wrap -> yield_tree directory
 
 include_tree = (directory) ->
     for filename in include directory
@@ -59,6 +46,12 @@ include_tree = (directory) ->
             basename, ext = explode_name filename
             if ext == "tex"
                 include_day basename
+
+export include_day = (day) ->
+    tex.sprint "\\section{#{nice_date day}}"
+    tex.sprint "\\label{#{day}}"
+    tex.sprint "\\include*{#{day}}"
+    tex.sprint "\\clearpage"
 
 export include_year = (year) -> include_tree year
 export include_month = (month) ->
