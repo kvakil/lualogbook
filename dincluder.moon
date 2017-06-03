@@ -4,9 +4,6 @@ is_dotfile = (filename) -> filename\match("^%.") != nil
 
 explode_name = (filename) -> filename\match("([^.]+)%.([^.]+)")
 
-include_file = (basename) ->
-    tex.sprint "\\include*{" .. basename .. "}"
-
 export include = (directory) ->
     yield_tree = (cd) ->
         for entry in lfs.dir cd
