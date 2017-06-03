@@ -23,7 +23,7 @@ TODAY=$(shell date +%Y/%m/%d).md
 
 all: $(MAIN).pdf
 
-$(MAIN).pdf: $(MOON_OUT) $(MD_OUT)
+$(MAIN).pdf: $(MOON_OUT) $(MD_OUT) .PHONY
 	$(LATEXMK)
 
 view: $(MAIN).pdf
@@ -44,3 +44,5 @@ clean:
 	rm *.lua || true
 	latexmk -C
 	git clean -ndX
+
+.PHONY:
