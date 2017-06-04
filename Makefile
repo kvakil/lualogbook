@@ -1,12 +1,7 @@
-####################################
-# See 2017/06/02 for documentation #
-####################################
-
-
 # latex options
 MAIN=log
 define LATEXMKOPTS
--pdflatex="lualatex -interaction=nonstopmode --shell-escape %S %O" -pdf -dvi- -ps-
+-pdflatex="lualatex -interaction=nonstopmode %S %O" -pdf -dvi- -ps-
 endef
 LATEXMK=latexmk $(LATEXMKOPTS)
 
