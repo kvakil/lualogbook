@@ -1,3 +1,4 @@
+# generated latexmk files
 *.aux
 *.bbl
 *.bcf
@@ -9,5 +10,12 @@
 *.pdf
 *.run.xml
 *.toc
+
+# generated pandoc files
 **/*.tex
+
+# generated moonscript files
+*.lua
+
+# generated ldoc files
 doc/
