@@ -30,10 +30,9 @@ today:
 	pandoc $(PANDOCFLAGS) -M title:$< -o $@ $<
 
 ldoc:
-	ldoc .
+	ldoc lua/
 
 clean:
-	rm *.lua || true
 	latexmk -C
 	git clean -ndX
 

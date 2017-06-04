@@ -2,7 +2,7 @@
 -- @module today
 -- @author Keyhan Vakil
 -- @license MIT
-module "today", package.seeall
+module "lua.today", package.seeall
 local *
 
 day = tonumber os.date "%d" -- strip leading zero

@@ -3,9 +3,9 @@
 
 % load lua packages not in local directory / kpathsea paths
 % allows autoloading moonscript
-\directlua{require "luaextpackages"}
+\directlua{require "lua.luaextpackages"}
 \directlua{require "moonscript"}
-\directlua{require "today"}
+\directlua{require "lua.today"}
 
 % bibliography
 \usepackage[backend=biber,style=numeric,doi=false,isbn=false,url=false,sorting=none]{biblatex}

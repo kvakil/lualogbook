@@ -2,7 +2,7 @@
 -- @module luaextpackages
 -- @author Keyhan Vakil
 -- @license MIT
-module "luaextpackages", package.seeall
+module "lua.luaextpackages", package.seeall
 local *
 
 --- creates a new searcher with the given name and pathspec

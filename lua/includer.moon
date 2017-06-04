@@ -2,7 +2,7 @@
 -- @module includer
 -- @author Keyhan Vakil
 -- @license MIT
-module "includer", package.seeall
+module "lua.includer", package.seeall
 local *
 
 --- check if a file is a dotfile
@@ -109,7 +109,7 @@ output_month_entry = (filename) ->
 
 --- includes all files in the directory year/
 -- @tparam string year the year as a string (e.g. "2017")
-includer.include_year = (year) ->
+lua.includer.include_year = (year) ->
     all_files = include year
     for filename in skeys all_files
         if is_day_entry filename
