@@ -3,7 +3,7 @@
 \usepackage{datetime}
     \yyyymmdddate
 
-\date{\today}
+\directlua{require("today")}
 
 % bibliography
 \usepackage[backend=biber,style=numeric,doi=false,isbn=false,url=false,sorting=none]{biblatex}
