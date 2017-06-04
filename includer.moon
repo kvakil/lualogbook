@@ -21,8 +21,8 @@ explode_name = (filename) -> filename\match "([^.]+)%.([^.]+)"
 --- creates a table of all the files and directories in directory
 -- @local here
 -- @tparam string directory to traverse
--- @tparam[opt] tab files the current files found
--- @treturn tab all of the found files 
+-- @tparam[opt] table files the current files found
+-- @treturn table all of the found files 
 include = (directory, files={}) ->
     for entry in lfs.dir directory
         if not is_dotfile entry -- ignore hidden files, esp. . and ..
