@@ -10,3 +10,4 @@
 *.run.xml
 *.toc
 **/*.tex
+doc/
