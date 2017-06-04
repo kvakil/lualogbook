@@ -1,7 +1,12 @@
 \title{ken.log}
 \author{Keyhan Vakil}
 
-\directlua{require("today")}
+% load lua packages not in local directory / kpathsea paths
+% allows autoloading moonscript
+\usepackage{luapackageloader}
+\directlua{package.path = "/home/keyhan/.luarocks/share/lua/5.1/?.lua;/home/keyhan/.luarocks/share/lua/5.1/?/init.lua;" .. package.path}
+\directlua{require "moonscript"}
+\directlua{require "today"}
 
 % bibliography
 \usepackage[backend=biber,style=numeric,doi=false,isbn=false,url=false,sorting=none]{biblatex}
@@ -78,11 +83,6 @@
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 
-% load lua packages not in local directory / kpathsea paths
-% allows autoloading moonscript
-\usepackage{luapackageloader}
-\directlua{package.path = "/home/keyhan/.luarocks/share/lua/5.1/?.lua;/home/keyhan/.luarocks/share/lua/5.1/?/init.lua;" .. package.path}
-\directlua{require "moonscript"}
 
 
 % hyperref for pretty links
