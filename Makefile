@@ -5,7 +5,9 @@
 
 # latex options
 MAIN=log
-LATEXMKOPTS=-pdflatex=lualatex -pdf
+define LATEXMKOPTS
+-pdflatex="lualatex -interaction=nonstopmode --shell-escape %S %O" -pdf -dvi- -ps-
+endef
 LATEXMK=latexmk $(LATEXMKOPTS)
 
 # pandoc

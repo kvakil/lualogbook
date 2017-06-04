@@ -3,8 +3,7 @@
 
 % load lua packages not in local directory / kpathsea paths
 % allows autoloading moonscript
-\usepackage{luapackageloader}
-\directlua{package.path = "/home/keyhan/.luarocks/share/lua/5.1/?.lua;/home/keyhan/.luarocks/share/lua/5.1/?/init.lua;" .. package.path}
+\directlua{require "luarockspackages"}
 \directlua{require "moonscript"}
 \directlua{require "today"}
 
