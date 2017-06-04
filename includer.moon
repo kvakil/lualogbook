@@ -77,7 +77,7 @@ nice_date = (date) ->
 
 --- outputs the entry for the given day
 -- @local here
--- @tparam string filename containg the entry
+-- @tparam string filename containing the entry
 output_day_entry = (filename) ->
     basename, _ = explode_name filename
     tex.sprint "\\section{#{nice_date basename}}"

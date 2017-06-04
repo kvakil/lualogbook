@@ -29,6 +29,9 @@ today:
 %.tex: %.md
 	pandoc $(PANDOCFLAGS) -M title:$< -o $@ $<
 
+ldoc:
+	ldoc .
+
 clean:
 	rm *.lua || true
 	latexmk -C
