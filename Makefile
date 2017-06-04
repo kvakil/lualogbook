@@ -8,11 +8,6 @@ MAIN=log
 LATEXMKOPTS=-pdflatex=lualatex -pdf
 LATEXMK=latexmk $(LATEXMKOPTS)
 
-# moonscript
-MOON_IN=$(wildcard *.moon) $(wildcard */*/*.moon)
-MOON_OUT=$(MOON_IN:.moon=.lua)
-MOONFLAGS=
-
 # pandoc
 MD_IN=$(wildcard */*/*.md)
 MD_OUT=$(MD_IN:.md=.tex)
@@ -23,7 +18,7 @@ TODAY=$(shell date +%Y/%m/%d).md
 
 all: $(MAIN).pdf
 
-$(MAIN).pdf: $(MOON_OUT) $(MD_OUT) .PHONY
+$(MAIN).pdf: $(MD_OUT) .PHONY
 	$(LATEXMK)
 
 view: $(MAIN).pdf
@@ -33,9 +28,6 @@ today:
 	cp --no-clobber _template.inc $(TODAY)
 	git add $(TODAY)
 	subl $(TODAY)
-
-%.lua: %.moon
-	moonc $(MOONFLAGS) $<
 
 %.tex: %.md
 	pandoc $(PANDOCFLAGS) -M title:$< -o $@ $<
