@@ -33,7 +33,7 @@ today:
 	pandoc $(PANDOCFLAGS) -M title:$< -o $@ $<
 
 ldoc:
-	ldoc lua/
+	cd lua/ && ldoc .
 
 clean:
 	latexmk -C
