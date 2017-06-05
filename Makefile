@@ -34,6 +34,6 @@ ldoc:
 
 clean:
 	latexmk -C
-	git clean -ndX
+	git clean -idX
 
 .PHONY:
