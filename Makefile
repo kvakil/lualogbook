@@ -1,5 +1,4 @@
 # latex options
-MAIN=log
 define LATEXMKOPTS
 -pdflatex="lualatex -interaction=nonstopmode %S %O" -pdf -dvi- -ps-
 endef
@@ -13,13 +12,17 @@ PANDOCFLAGS= -F pandoc_filter.py -f markdown -t latex
 # ease of use
 TODAY=$(shell date +%Y/%m/%d).md
 
-all: $(MAIN).pdf
+all: log.pdf
 
-$(MAIN).pdf: $(MD_OUT) .PHONY
+log.pdf: $(MD_OUT)
 	$(LATEXMK)
 
-view: $(MAIN).pdf
-	xreader $(MAIN).pdf
+force: $(MD_OUT)
+	rm log.pdf
+	$(LATEXMK)
+
+view: log.pdf
+	xreader log.pdf
 
 today:
 	touch $(TODAY)
@@ -36,4 +39,4 @@ clean:
 	latexmk -C
 	git clean -idX
 
-.PHONY:
+.PHONY: log.pdf force
