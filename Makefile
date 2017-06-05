@@ -22,7 +22,7 @@ view: $(MAIN).pdf
 	xreader $(MAIN).pdf
 
 today:
-	cp --no-clobber _template.inc $(TODAY)
+	touch $(TODAY)
 	git add $(TODAY)
 	subl $(TODAY)
 
