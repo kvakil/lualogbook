@@ -8,7 +8,7 @@ LATEXMK=latexmk $(LATEXMKOPTS)
 # pandoc
 MD_IN=$(wildcard */*/*.md)
 MD_OUT=$(MD_IN:.md=.tex)
-PANDOCFLAGS= -F filter.py -f markdown -t latex
+PANDOCFLAGS= -F pandoc_filter.py -f markdown -t latex
 
 # ease of use
 TODAY=$(shell date +%Y/%m/%d).md
