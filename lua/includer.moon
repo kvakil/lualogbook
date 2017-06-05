@@ -14,8 +14,8 @@ is_dotfile = (filename) -> filename\sub(1, 1) == '.'
 --- split a file into its name and extension
 -- @local here
 -- @tparam string filename
--- @return the basename of the file
--- @return the extension of the file
+-- @treturn string the basename of the file
+-- @treturn string the extension of the file
 explode_name = (filename) -> filename\match "([^.]+)%.([^.]+)"
 
 --- creates a table of all the files and directories in directory
