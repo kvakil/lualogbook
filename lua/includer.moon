@@ -107,12 +107,24 @@ output_month_entry = (filename) ->
     tex.sprint "\\chapter{#{nice_month filename}}"
     tex.sprint "\\clearpage"
 
+--- includes recent entries
+-- @tparam string year the year as a string (e.g. "2017")
+-- @tparam int n the number of entries to include
+lua.includer.include_recent = (year, n) ->
+    all_files = include year
+    entry_files = [f for f in skeys all_files when is_day_entry(f) or is_month(f)]
+    -- @todo always include month including the days
+    skip = #entry_files - n
+    for _, filename in pairs entry_files
+        if skip < 1
+            if is_day_entry filename
+                output_day_entry filename
+            elseif is_month filename
+                output_month_entry filename
+        else
+            skip -= 1
+
 --- includes all files in the directory year/
 -- @tparam string year the year as a string (e.g. "2017")
 lua.includer.include_year = (year) ->
-    all_files = include year
-    for filename in skeys all_files
-        if is_day_entry filename
-            output_day_entry filename
-        elseif is_month filename
-            output_month_entry filename
+    lua.includer.include_recent year, math.huge
