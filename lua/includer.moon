@@ -21,16 +21,19 @@ explode_name = (filename) -> filename\match "([^.]+)%.([^.]+)"
 --- creates a table of all the files and directories in directory
 -- @local here
 -- @tparam string directory to traverse
--- @tparam[opt] table files the current files found
 -- @treturn table all of the found files 
-include = (directory, files={}) ->
-    for entry in lfs.dir directory
-        if not is_dotfile entry -- ignore hidden files, esp. . and ..
-            entry = directory .. "/" .. entry
-            files[entry] = true
-            if lfs.isdir entry
-                include(entry, files)
-    return files
+include = (directory) ->
+    -- recursively adds files in current_directory to the files table
+    helper = (current_directory, files) ->
+        for entry in lfs.dir current_directory
+            if not is_dotfile entry -- ignore hidden files, esp . and ..
+                entry = current_directory .. "/" .. entry
+                files[entry] = true
+                if lfs.isdir entry
+                    helper(entry, files)
+    all_files = {}
+    helper(directory, all_files)
+    return all_files
 
 --- iterator which traverses the keys of a table in sorted order
 -- @local here
