@@ -20,3 +20,4 @@ create_new_searcher = function(searcher_name, path, cmodule)
 end
 create_new_searcher('package.path', package.path, false)
 create_new_searcher('package.cpath', package.cpath, true)
+return { }
