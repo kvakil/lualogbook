@@ -109,7 +109,7 @@ lua.includer.include_recent = function(year, n)
     entry_files = _accum_0
   end
   local skip = #entry_files - n
-  for _, filename in pairs(entry_files) do
+  for _, filename in ipairs(entry_files) do
     if skip < 1 then
       if is_day_entry(filename) then
         output_day_entry(filename)

@@ -118,7 +118,7 @@ lua.includer.include_recent = (year, n) ->
     entry_files = [f for f in skeys all_files when is_day_entry(f) or is_month(f)]
     -- @todo always include month including the days
     skip = #entry_files - n
-    for _, filename in pairs entry_files
+    for _, filename in ipairs entry_files
         if skip < 1
             if is_day_entry filename
                 output_day_entry filename
