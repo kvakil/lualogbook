@@ -59,7 +59,7 @@ is_day_entry = (filename) -> filename\match("^%d%d%d%d/%d%d/%d%d%.tex$") != nil
 -- @tparam number number
 -- @treturn string the appropriate suffix (st, nd, rd or th)
 ordinal_suffix = (number) ->
-    switch number % 10
+    switch number
         when 1 then "st"
         when 2 then "nd"
         when 3 then "rd"
