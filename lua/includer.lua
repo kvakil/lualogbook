@@ -47,7 +47,7 @@ is_day_entry = function(filename)
   return filename:match("^%d%d%d%d/%d%d/%d%d%.tex$") ~= nil
 end
 ordinal_suffix = function(number)
-  local _exp_0 = number % 10
+  local _exp_0 = number
   if 1 == _exp_0 then
     return "st"
   elseif 2 == _exp_0 then
