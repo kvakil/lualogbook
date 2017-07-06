@@ -25,6 +25,7 @@ view: log.pdf
 	xreader log.pdf
 
 today:
+	mkdir -p `dirname $(TODAY)`
 	touch $(TODAY)
 	git add $(TODAY)
 	subl $(TODAY)
