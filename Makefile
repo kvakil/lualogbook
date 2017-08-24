@@ -40,4 +40,4 @@ clean:
 	latexmk -C
 	git clean -idX
 
-.PHONY: log.pdf force
+.PHONY: force view ldoc clean
